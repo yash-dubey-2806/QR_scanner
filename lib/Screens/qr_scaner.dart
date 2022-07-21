@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -52,10 +54,27 @@ class _QRScanerState extends State<QRScaner> {
           ),
         ],
       ),
-      body: MobileScanner(
-        allowDuplicates: true,
-        controller: cameraController,
-        onDetect: _foundBarcode,
+      body: Stack(
+        children: [
+          // blur filter start
+          Center(
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(15),
+              ),
+              child: SizedBox(
+                width: 200,
+                height: 200,
+                child: MobileScanner(
+                  fit: BoxFit.fill,
+                  allowDuplicates: true,
+                  controller: cameraController,
+                  onDetect: _foundBarcode,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
