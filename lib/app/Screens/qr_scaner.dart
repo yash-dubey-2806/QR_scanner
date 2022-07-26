@@ -1,5 +1,10 @@
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings
+
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:qr_scanner_app/app/Screens/found_qr_code.dart';
+import 'package:qr_scanner_app/app/Screens/qr_overlay.dart';
+
 
 class QRScaner extends StatefulWidget {
   const QRScaner({Key? key}) : super(key: key);
@@ -52,10 +57,17 @@ class _QRScanerState extends State<QRScaner> {
           ),
         ],
       ),
-      body: MobileScanner(
-        allowDuplicates: true,
-        controller: cameraController,
-        onDetect: _foundBarcode,
+      body:  Stack(
+        children: [
+          MobileScanner(
+            allowDuplicates: true,
+            controller: cameraController,
+            onDetect: _foundBarcode,
+          ),
+          QRScannerOverlay(
+            overlayColour: Colors.black.withOpacity(0.5),
+          )
+        ],
       ),
     );
   }
@@ -80,61 +92,3 @@ class _QRScanerState extends State<QRScaner> {
   }
 }
 
-class FoundCodeScreen extends StatefulWidget {
-  final String value;
-  final Function() screenClosed;
-  const FoundCodeScreen({
-    Key? key,
-    required this.value,
-    required this.screenClosed,
-  }) : super(key: key);
-
-  @override
-  State<FoundCodeScreen> createState() => _FoundCodeScreenState();
-}
-
-class _FoundCodeScreenState extends State<FoundCodeScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Found Code"),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            widget.screenClosed();
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.arrow_back_outlined,
-          ),
-        ),
-      ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Scanned Code:",
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                widget.value,
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
