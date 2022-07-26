@@ -161,13 +161,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
       
         final DateTime now = DateTime.now();
-        final DateFormat formatter = DateFormat('h:mm a');
+        final DateFormat formatter = DateFormat('h');
         final String formatted = formatter.format(now);
         print(formatted); 
         
       var data = int.parse(formatted.toString());
 
-      print((data + 300).toString());
+      print((data+3).toString());
 
         UserSecureStorage.setLoginTime((data + 300).toString());
         
