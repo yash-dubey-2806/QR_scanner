@@ -170,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       print((data+3).toString());
 
-        UserSecureStorage.setLoginTime((data + 300));
+        UserSecureStorage.setLoginTime((data + 3).toString());
         
         // something like 2013-04-20
       

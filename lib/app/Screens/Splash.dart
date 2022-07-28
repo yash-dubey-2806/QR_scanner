@@ -1,94 +1,78 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_scanner_app/app/Screens/login.dart';
-import 'package:qr_scanner_app/main.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:splashscreen/splashscreen.dart';
-
-import '../utilities/UserSecureStorage.dart';
+import 'package:qr_scanner_app/app/Screens/qr_scaner.dart';
+import 'package:qr_scanner_app/app/utilities/UserSecureStorage.dart';
 
 class Splash extends StatefulWidget {
-  static late BuildContext baseContext;
-
   const Splash({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => SplashState();
+  State<Splash> createState() => _SplashState();
 }
 
-class SplashState extends State<Splash> {
-  late int finalToken;
+class _SplashState extends State<Splash> {
+  String? finalToken;
 
   @override
   void initState() {
- 
+    _buildChild();
     super.initState();
-    init();
   }
 
-  @override
-  Future init() async {
-    final token = await UserSecureStorage.getLoginTime() ?? '';
-    
-    setState(() {
-      finalToken = int.parse(token.toString());
-      
-    });
-  }
-
+  Locale? _locale;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "SSISM Attendance",
+      title: "Attendance App",
       debugShowCheckedModeBanner: false,
+      locale: _locale,
       home: Scaffold(
         body: Stack(
-          fit: StackFit.expand,
+          fit: StackFit.loose,
           children: [
-            Container(
-              height: 0,
-              child: _buildChild(),
-            ),
-            Container(
-              child: AnimatedSplashScreen(
-                  duration: 3000,
-                  animationDuration:const Duration(milliseconds: 1650),
-                  splash: 'assets/images/Ssism_Logo_01.png',
-                  splashIconSize: 200,
-                  // nextScreen: ScanScreen(),
-                  nextScreen: _buildChild(),
-                  splashTransition: SplashTransition.fadeTransition,
-                  backgroundColor: Colors.white),
+            AnimatedContainer(
+              curve: Curves.bounceInOut,
+              duration: const Duration(seconds: 3),
+              child: Center(
+                child: Image.asset(
+                  'assets/images/Ssism_Logo_01.png',
+                  height: MediaQuery.of(context).size.height / 4,
+                  width: MediaQuery.of(context).size.width / 4,
+                ),
+              ),
             ),
           ],
         ),
       ),
-   
     );
   }
 
-  Widget _buildChild() {
-      final DateTime now = DateTime.now();
+
+
+  _buildChild() async{
+     final DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('h');
     final String formatted = formatter.format(now);
+    print(formatted);
+    final value = await UserSecureStorage.getLoginTime();
+    var valuefinal = int.parse(value.toString());
     var data = int.parse(formatted.toString());
 
-    // print("finalToken");
-    if (data >  finalToken) {
-      return  SplashScreen(
-        seconds: 3,
-        navigateAfterSeconds:const HomePage(),
-      );
-    } else {
-      // print("else part");
-      return  SplashScreen(
-        seconds: 3,
-        navigateAfterSeconds:const LoginScreen(),
-        // navigateAfterSeconds: AddFarmers(),
-      );
-    }
+    Timer(const Duration(seconds: 4), () {
+      if( valuefinal != 30 && data <= valuefinal ){
+ Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const QRScaner()),
+          (route) => false);
+      }
+     else{
+ Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+          (route) => false);
+      }
+    });
   }
 }

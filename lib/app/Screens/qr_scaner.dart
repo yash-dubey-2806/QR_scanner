@@ -1,9 +1,12 @@
 // ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_scanner_app/app/Screens/found_qr_code.dart';
+import 'package:qr_scanner_app/app/Screens/login.dart';
 import 'package:qr_scanner_app/app/Screens/qr_overlay.dart';
+import 'package:qr_scanner_app/app/utilities/UserSecureStorage.dart';
 
 
 class QRScaner extends StatefulWidget {
@@ -55,6 +58,19 @@ class _QRScanerState extends State<QRScaner> {
             iconSize: 32.0,
             onPressed: () => cameraController.switchCamera(),
           ),
+          IconButton(
+            icon:
+               Icon(Icons.login_outlined,size: 32.0,
+            color: Colors.white,),
+            onPressed: (){
+              UserSecureStorage.setLoginTime(30.toString());
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> LoginScreen()), (route) => false);
+            },
+
+               
+              
+            ),
+           
         ],
       ),
       body:  Stack(
