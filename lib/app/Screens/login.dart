@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_scanner_app/app/Screens/commom_functions.dart';
+import 'package:qr_scanner_app/app/Screens/qr_scaner.dart';
 import 'package:qr_scanner_app/app/bloc/login_bloc.dart';
 import 'package:qr_scanner_app/app/utilities/UserSecureStorage.dart';
 import 'package:qr_scanner_app/main.dart';
@@ -161,15 +162,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
       
         final DateTime now = DateTime.now();
-        final DateFormat formatter = DateFormat('h:mm a');
+        final DateFormat formatter = DateFormat('h');
         final String formatted = formatter.format(now);
         print(formatted); 
         
       var data = int.parse(formatted.toString());
 
-      print((data + 300).toString());
+      print((data+3).toString());
 
-        UserSecureStorage.setLoginTime((data + 300).toString());
+        UserSecureStorage.setLoginTime((data + 3).toString());
         
         // something like 2013-04-20
       
@@ -180,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) => const HomePage()),
+              builder: (BuildContext context) => const QRScaner()),
           (Route<dynamic> route) => false);
     }).catchError((err) {
       _commonFuntion.loaderHandlerHide();

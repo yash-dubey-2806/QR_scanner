@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_scanner_app/app/Screens/login.dart';
 import 'package:qr_scanner_app/app/Screens/qr_scaner.dart';
+import 'package:qr_scanner_app/app/Screens/splash.dart';
 import 'package:qr_scanner_app/app/utilities/UserSecureStorage.dart';
 
 void main() {
@@ -13,7 +14,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var data = UserSecureStorage.getLoginTime();
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.orange,
       ),
       // home:(data == 200) ? const LoginScreen():const HomePage(),
-      home: LoginScreen(),
+      home:const Splash(),
     );
   }
 }

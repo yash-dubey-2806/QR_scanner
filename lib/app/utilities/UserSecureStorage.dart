@@ -95,6 +95,7 @@ class UserSecureStorage {
     _storage.delete(key: _keyLatitude);
     _storage.delete(key: _keyLongitude);
     _storage.delete(key: _keyUserId);
+    _storage.delete(key: _keyLoginTime);
     await _storage.delete(key: _keyToken);
     return null;
   }
