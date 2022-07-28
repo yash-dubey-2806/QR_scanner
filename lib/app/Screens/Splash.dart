@@ -52,27 +52,27 @@ class _SplashState extends State<Splash> {
 
 
   _buildChild() async{
-     final DateTime now = DateTime.now();
-    final DateFormat formatter = DateFormat('h');
-    final String formatted = formatter.format(now);
-    print(formatted);
-    final value = await UserSecureStorage.getLoginTime();
-    var valuefinal = int.parse(value.toString());
-    var data = int.parse(formatted.toString());
+    //  final DateTime now = DateTime.now();
+    // final DateFormat formatter = DateFormat('h');
+    // final String formatted = formatter.format(now);
+    // print(formatted);
+    // final value = await UserSecureStorage.getLoginTime();
+    // var valuefinal = int.parse(value.toString());
+    // var data = int.parse(formatted.toString());
 
     Timer(const Duration(seconds: 4), () {
-      if( valuefinal != 30 && data <= valuefinal ){
- Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const QRScaner()),
-          (route) => false);
-      }
-     else{
+//       if( valuefinal != 30 && data <= valuefinal ){
+//  Navigator.pushAndRemoveUntil(
+//           context,
+//           MaterialPageRoute(builder: (context) => const QRScaner()),
+//           (route) => false);
+//       }
+//      else{
  Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const LoginScreen()),
           (route) => false);
-      }
+      // }
     });
   }
 }
