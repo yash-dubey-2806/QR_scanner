@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_scanner_app/app/Screens/commom_functions.dart';
 import 'package:qr_scanner_app/app/Screens/login.dart';
@@ -20,11 +22,16 @@ class FoundCodeScreen extends StatefulWidget {
 }
 
 class _FoundCodeScreenState extends State<FoundCodeScreen> {
+  final audioPlayer = AudioPlayer();
+   AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
   late StudentDataBloc _studentDataBloc;
   late AttendanceSuccessBloc _attendanceSuccessBloc;
   late CommonFuntion _commonFuntion;
   @override
   void initState() {
+     
+    // audioPlayer.play(assets/audio/P3EsFcN_rRc.mp3);
+    // assetsAudioPlayer.play();
     _attendanceSuccessBloc = AttendanceSuccessBloc();
     _studentDataBloc = StudentDataBloc();
     _commonFuntion = CommonFuntion();
@@ -36,6 +43,7 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
     widget.screenClosed();
     Navigator.pop(context);
   }
+  
 
   adharCardFormate() {
     String s = widget.value;
@@ -61,9 +69,7 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-         Future.delayed(const Duration(milliseconds: 0), () {
-          addAttendence(confirmdata.id, confirmdata.isStudent);
-        });
+        
         return AlertDialog(
           title: const Text("Detail's"),
           content: SingleChildScrollView(
@@ -76,21 +82,21 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
               ],
             ),
           ),
-          // actions: <Widget>[
-          //   TextButton(
-          //     child: const Text('No'),
-          //     onPressed: () {
-          //       Navigator.pop(context);
-          //       existToThisPage();
-          //     },
-          //   ),
-          //   // TextButton(
-          //   //   child: const Text('Yes'),
-          //   //   onPressed: () async {
-          //   //     addAttendence(confirmdata.id, confirmdata.isStudent);
-          //   //   },
-          //   // ),
-          // ],
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.pop(context);
+                existToThisPage();
+              },
+            ),
+            TextButton(
+              child: const Text('Yes'),
+              onPressed: () async {
+                addAttendence(confirmdata.id,confirmdata.isStudent);
+              },
+            ),
+          ],
         );
       },
     );
@@ -104,14 +110,17 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
         await _attendanceSuccessBloc.fetchStudentAttendance(id, isStudent).then(
       (value) {
         _commonFuntion.loaderHandlerHide();
-        attendanceDone(true);
+        attendanceDone(true,value!.message);
+      value.message =="Employee Is In" ?  assetsAudioPlayer.open(Audio('assets/audio/InAudio.mp3'),
+            autoStart: true):assetsAudioPlayer.open(Audio('assets/audio/OutAudio.mp3'),
+        autoStart: true);
       },
     ).catchError((err) {
       _commonFuntion.loaderHandlerHide();
 
       print("error is that" + err.toString());
       err == 208
-          ? attendanceDone(false)
+          ? attendanceDone(false,err)
           : err == 401
               ? unAuthorized()
               : "";
@@ -128,7 +137,8 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
       (value) {
         print("Student data " + value!.position.toString());
         _commonFuntion.loaderHandlerHide();
-        showConfirm(value);
+        value.isStudent == true?userNotFound("Data Not found"): showConfirm(value);
+
         // existToThisPage();
       },
     ).catchError((onError) {
@@ -137,12 +147,12 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
     });
   }
 
-  Future<void> attendanceDone(status) async {
+  Future<void> attendanceDone(status,msg) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        Future.delayed(const Duration(milliseconds: 300), () {
+        Future.delayed(const Duration(seconds: 2), () {
           existToThisPage();
           Navigator.pop(context);
         });
@@ -182,19 +192,19 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Text("SuccessFully Done")
+                       Text(msg)
                     ],
                   ),
           ),
-          // actions: <Widget>[
-          //   TextButton(
-          //     child: const Text('Ok'),
-          //     onPressed: () {
-          //       existToThisPage();
-          //       Navigator.pop(context);
-          //     },
-          //   ),
-          // ],
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                existToThisPage();
+                Navigator.pop(context);
+              },
+            ),
+          ],
         );
       },
     );
