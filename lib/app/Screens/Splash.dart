@@ -17,17 +17,29 @@ class _SplashState extends State<Splash> {
 
   @override
   void initState() {
-    _buildChild();
+    setLocal();
     super.initState();
   }
 
-  Locale? _locale;
+  setLocal()async{
+   final acess =  await UserSecureStorage.getLoginTime();
+   print("final acess"+ acess.toString());
+   acess == null ?
+   await UserSecureStorage.setLoginTime(30.toString()):"";
+   final dateChecking =  await UserSecureStorage.getLoginDate();
+   print("final dateChecking"+ dateChecking.toString());
+   dateChecking == null ?
+   await UserSecureStorage.setLoginDate(30.toString()):"";
+
+       _buildChild();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Attendance App",
       debugShowCheckedModeBanner: false,
-      locale: _locale,
       home: Scaffold(
         body: Stack(
           fit: StackFit.loose,
@@ -52,27 +64,31 @@ class _SplashState extends State<Splash> {
 
 
   _buildChild() async{
-    //  final DateTime now = DateTime.now();
-    // final DateFormat formatter = DateFormat('h');
-    // final String formatted = formatter.format(now);
-    // print(formatted);
-    // final value = await UserSecureStorage.getLoginTime();
-    // var valuefinal = int.parse(value.toString());
-    // var data = int.parse(formatted.toString());
+     final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('h');
+    final String formatted = formatter.format(now);
+    print(formatted);
+    final value = await UserSecureStorage.getLoginTime();
+    final dateIsThat = await UserSecureStorage.getLoginDate();
+    var valuefinal = int.parse(value.toString());
+    var data = int.parse(formatted.toString());
+    final dateFormatter = DateFormat.yMd();
+    final String formatteddat = dateFormatter.format(now);
+    print(formatteddat);
 
     Timer(const Duration(seconds: 4), () {
-//       if( valuefinal != 30 && data <= valuefinal ){
-//  Navigator.pushAndRemoveUntil(
-//           context,
-//           MaterialPageRoute(builder: (context) => const QRScaner()),
-//           (route) => false);
-//       }
-//      else{
+      if( valuefinal != 30 && data <= valuefinal && dateIsThat == formatteddat ){
+ Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const QRScaner()),
+          (route) => false);
+      }
+     else{
  Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const LoginScreen()),
           (route) => false);
-      // }
+      }
     });
   }
 }

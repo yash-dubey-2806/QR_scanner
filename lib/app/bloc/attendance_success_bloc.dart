@@ -10,9 +10,9 @@ class AttendanceSuccessBloc {
     _attendanceSuccessRepository = AttendanceSuccessRepository();
   }
 
-  Future<AttendanceSuccessResponse?> fetchStudentAttendance(loginData) async {
+  Future<AttendanceSuccessResponse?> fetchStudentAttendance(loginData,isStudent) async {
     AttendanceSuccessResponse? loginRespone =
-        await _attendanceSuccessRepository.fetchStudentAttendance(loginData);
+        await _attendanceSuccessRepository.fetchStudentAttendance(loginData,isStudent);
 
     return loginRespone;
   }

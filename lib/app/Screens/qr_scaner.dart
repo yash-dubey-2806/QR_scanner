@@ -20,6 +20,8 @@ class _QRScanerState extends State<QRScaner> {
   MobileScannerController cameraController = MobileScannerController();
   bool _screenOpened = false;
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

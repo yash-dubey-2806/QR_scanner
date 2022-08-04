@@ -8,9 +8,10 @@ import '../utilities/Constants.dart';
 class AttendanceSuccessRepository {
   ApiBaseHelper _helper = ApiBaseHelper();
 
-  fetchStudentAttendance(data) async {
+  fetchStudentAttendance(data,isStudent) async {
     final response = await _helper.get(
-        Constants.ATTENDANCE_SUCCESS + data, Constants.BASEURL);
+       isStudent == true ? Constants.ATTENDANCE_STUDENT_SUCCESS + data
+            : Constants.ATTENDANCE_EMPLOYEE_SUCCESS + data, Constants.BASEURL);
 
     print("Get login on repo= $response");
     return AttendanceSuccessResponse.fromJson(response);

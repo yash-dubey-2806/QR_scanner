@@ -115,6 +115,7 @@ dynamic _returnResponse(http.Response response) {
     case 404:
     throw response.statusCode;
     case 401:
+      throw response.statusCode;
     case 415:
     case 403:
       throw UnauthorisedException(response.body.toString());

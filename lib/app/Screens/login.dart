@@ -165,12 +165,16 @@ class _LoginScreenState extends State<LoginScreen> {
         final DateFormat formatter = DateFormat('h');
         final String formatted = formatter.format(now);
         print(formatted); 
+        final dateFormatter = DateFormat.yMd();
+      final String formatteddat = dateFormatter.format(now);
+      print(formatteddat);
         
       var data = int.parse(formatted.toString());
 
       print((data+3).toString());
 
         UserSecureStorage.setLoginTime((data + 3).toString());
+        UserSecureStorage.setLoginDate(formatteddat.toString());
         
         // something like 2013-04-20
       

@@ -11,6 +11,7 @@ class UserSecureStorage {
   static const _keyEmailId = "email";
   static const _keyUserId = "userId";
   static const _keyRole = "role";
+  static const _keyLoginDate = "LoginDate";
   static const _keyLoginTime = "LoginTime";
 
   static Future setUsername(String username) async =>
@@ -57,6 +58,15 @@ class UserSecureStorage {
     await _storage.read(key: _keyLoginTime).then((value) => time = value);
     return time;
   }
+  static Future setLoginDate(date) async {
+    await _storage.write(key: _keyLoginDate, value: date);
+  }
+
+  static Future<String?> getLoginDate() async {
+    var Date;
+    await _storage.read(key: _keyLoginDate).then((value) => Date = value);
+    return Date;
+  }
 
 
   static Future setLatitude(double latitude) async =>
@@ -95,6 +105,7 @@ class UserSecureStorage {
     _storage.delete(key: _keyLatitude);
     _storage.delete(key: _keyLongitude);
     _storage.delete(key: _keyUserId);
+    _storage.delete(key: _keyLoginDate);
     _storage.delete(key: _keyLoginTime);
     await _storage.delete(key: _keyToken);
     return null;
