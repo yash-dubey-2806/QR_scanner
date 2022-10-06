@@ -61,9 +61,9 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-         Future.delayed(const Duration(milliseconds: 0), () {
-          addAttendence(confirmdata.id, confirmdata.isStudent);
-        });
+        //  Future.delayed(const Duration(milliseconds: 0), () {
+        //  confirmdata.isStudent == true? addAttendence(confirmdata.id, confirmdata.isStudent):{Navigator.pop(context), userNotFound("Data Not found")};
+        // });
         return AlertDialog(
           title: const Text("Detail's"),
           content: SingleChildScrollView(
@@ -76,21 +76,21 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
               ],
             ),
           ),
-          // actions: <Widget>[
-          //   TextButton(
-          //     child: const Text('No'),
-          //     onPressed: () {
-          //       Navigator.pop(context);
-          //       existToThisPage();
-          //     },
-          //   ),
-          //   // TextButton(
-          //   //   child: const Text('Yes'),
-          //   //   onPressed: () async {
-          //   //     addAttendence(confirmdata.id, confirmdata.isStudent);
-          //   //   },
-          //   // ),
-          // ],
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.pop(context);
+                existToThisPage();
+              },
+            ),
+            TextButton(
+              child: const Text('Yes'),
+              onPressed: () async {
+                 confirmdata.isStudent == true? addAttendence(confirmdata.id, confirmdata.isStudent):{Navigator.pop(context), userNotFound("Data Not found")};
+              },
+            ),
+          ],
         );
       },
     );
