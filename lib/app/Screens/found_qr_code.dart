@@ -196,15 +196,7 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
                     ],
                   ),
           ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Ok'),
-              onPressed: () {
-                existToThisPage();
-                Navigator.pop(context);
-              },
-            ),
-          ],
+          
         );
       },
     );

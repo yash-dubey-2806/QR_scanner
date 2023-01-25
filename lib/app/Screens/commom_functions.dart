@@ -1,22 +1,27 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
 class CommonFuntion {
   snackBar(String message, context) {
     return ScaffoldMessenger.of(context).showSnackBar(
-
       SnackBar(
-        
-         content: Row(
+        content: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(Icons.warning,color: Colors.red,size: 25,),
+            Icon(
+              Icons.warning,
+              color: Colors.red,
+              size: 25,
+            ),
             SizedBox(
               width: 20,
             ),
-            Text(message,style: TextStyle(  color: Colors.orange,fontSize: 22),),
+            Expanded(
+                child: Text(
+              message,
+              style: TextStyle(color: Colors.orange, fontSize: 22),
+            ),),
           ],
         ),
         duration: Duration(seconds: 4),
@@ -24,7 +29,6 @@ class CommonFuntion {
       ),
     );
   }
-  
 
   loaderHandlerShow(context) {
     Loader.show(
@@ -46,8 +50,6 @@ class CommonFuntion {
   loaderHandlerHide() {
     Loader.hide();
   }
-
-  
 }
 
 // void main() {
