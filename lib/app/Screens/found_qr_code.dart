@@ -128,7 +128,7 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
       (value) {
         print("Student data " + value!.position.toString());
         _commonFuntion.loaderHandlerHide();
-        showConfirm(value);
+       value.isStudent == true? showConfirm(value):userNotFound("Data Not found");
         // existToThisPage();
       },
     ).catchError((onError) {
@@ -239,15 +239,15 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
               Text(msg)
             ],
           )),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Ok'),
-              onPressed: () {
-                existToThisPage();
-                Navigator.pop(context);
-              },
-            ),
-          ],
+          // actions: <Widget>[
+          //   // TextButton(
+          //   //   child: const Text('Ok'),
+          //   //   onPressed: () {
+          //   //     existToThisPage();
+          //   //     Navigator.pop(context);
+          //   //   },
+          //   // ),
+          // ],
         );
       },
     );

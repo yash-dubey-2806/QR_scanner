@@ -12,11 +12,11 @@ class CommonFuntion {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(Icons.warning,color: Colors.red,size: 25,),
-            SizedBox(
+            const Icon(Icons.warning,color: Colors.red,size: 25,),
+          const  SizedBox(
               width: 20,
             ),
-            Text(message,style: TextStyle(  color: Colors.orange,fontSize: 22),),
+            Text(message,style:const TextStyle(  color: Colors.orange,fontSize: 22,overflow: TextOverflow.clip),),
           ],
         ),
         duration: Duration(seconds: 4),
