@@ -10,11 +10,11 @@ class LoginRepository {
   fetchLogin(data) async {
     final response =
         await _helper.post(Constants.LOGIN_URL, data, Constants.BASEURL);
-            await UserSecureStorage.setToken(response['token']);
-            await UserSecureStorage.setUserId(response['userId']);
-            await UserSecureStorage.setUsername(response['user']);
-            await UserSecureStorage.setEmail(response['email']);
-            await UserSecureStorage.setRole(response['role']);
+    await UserSecureStorage.setToken(response['token']);
+    await UserSecureStorage.setUserId(response['userId']);
+    await UserSecureStorage.setUsername(response['user']);
+    await UserSecureStorage.setEmail(response['email']);
+    await UserSecureStorage.setRole(response['role']);
 
     print("Get login on repo= $response");
     return LoginResponse.fromJson(response);

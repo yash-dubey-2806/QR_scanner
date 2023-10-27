@@ -1,5 +1,5 @@
 class SuccessRsponse {
-  static final status = false;
+  static const status = false;
 
   static Future setSuccessResponse(bool status) async => status;
 }

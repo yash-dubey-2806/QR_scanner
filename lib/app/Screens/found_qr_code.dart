@@ -61,7 +61,7 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-         Future.delayed(const Duration(milliseconds: 0), () {
+        Future.delayed(const Duration(milliseconds: 0), () {
           addAttendence(confirmdata.id, confirmdata.isStudent);
         });
         return AlertDialog(
@@ -84,13 +84,6 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
           //       existToThisPage();
           //     },
           //   ),
-          //   // TextButton(
-          //   //   child: const Text('Yes'),
-          //   //   onPressed: () async {
-          //   //     addAttendence(confirmdata.id, confirmdata.isStudent);
-          //   //   },
-          //   // ),
-          // ],
         );
       },
     );
@@ -128,7 +121,9 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
       (value) {
         print("Student data " + value!.position.toString());
         _commonFuntion.loaderHandlerHide();
-       value.isStudent == true? showConfirm(value):userNotFound("Data Not found");
+        value.isStudent == true
+            ? showConfirm(value)
+            : userNotFound("Data Not found");
         // existToThisPage();
       },
     ).catchError((onError) {
@@ -221,33 +216,25 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
         return AlertDialog(
           // title: ,
           content: SingleChildScrollView(
-              child: Column(
-            children: [
-              Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(65),
+            child: Column(
+              children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(65),
+                  ),
+                  child: const Icon(Icons.highlight_remove_sharp,
+                      color: Colors.white, size: 32),
                 ),
-                child: const Icon(Icons.highlight_remove_sharp,
-                    color: Colors.white, size: 32),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(msg)
-            ],
-          )),
-          // actions: <Widget>[
-          //   // TextButton(
-          //   //   child: const Text('Ok'),
-          //   //   onPressed: () {
-          //   //     existToThisPage();
-          //   //     Navigator.pop(context);
-          //   //   },
-          //   // ),
-          // ],
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(msg)
+              ],
+            ),
+          ),
         );
       },
     );

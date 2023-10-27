@@ -21,18 +21,17 @@ class _SplashState extends State<Splash> {
     super.initState();
   }
 
-  setLocal()async{
-   final acess =  await UserSecureStorage.getLoginTime();
-   print("final acess"+ acess.toString());
-   acess == null ?
-   await UserSecureStorage.setLoginTime(30.toString()):"";
-   final dateChecking =  await UserSecureStorage.getLoginDate();
-   print("final dateChecking"+ dateChecking.toString());
-   dateChecking == null ?
-   await UserSecureStorage.setLoginDate(30.toString()):"";
+  setLocal() async {
+    final acess = await UserSecureStorage.getLoginTime();
+    print("final acess" + acess.toString());
+    acess == null ? await UserSecureStorage.setLoginTime(30.toString()) : "";
+    final dateChecking = await UserSecureStorage.getLoginDate();
+    print("final dateChecking" + dateChecking.toString());
+    dateChecking == null
+        ? await UserSecureStorage.setLoginDate(30.toString())
+        : "";
 
-       _buildChild();
-
+    _buildChild();
   }
 
   @override
@@ -61,10 +60,8 @@ class _SplashState extends State<Splash> {
     );
   }
 
-
-
-  _buildChild() async{
-     final DateTime now = DateTime.now();
+  _buildChild() async {
+    final DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('h');
     final String formatted = formatter.format(now);
     print(formatted);
@@ -77,17 +74,18 @@ class _SplashState extends State<Splash> {
     print(formatteddat);
 
     Timer(const Duration(seconds: 4), () {
-      if( valuefinal != 30 && data <= valuefinal && dateIsThat == formatteddat ){
- Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const QRScaner()),
-          (route) => false);
-      }
-     else{
- Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-          (route) => false);
+      if (valuefinal != 30 &&
+          data <= valuefinal &&
+          dateIsThat == formatteddat) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const QRScaner()),
+            (route) => false);
+      } else {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+            (route) => false);
       }
     });
   }

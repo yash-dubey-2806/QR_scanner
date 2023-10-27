@@ -1,8 +1,7 @@
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class UserSecureStorage {
-  static const _storage =   FlutterSecureStorage();
+  static const _storage = FlutterSecureStorage();
 
   static const _keyUsername = 'username';
   static const _keyToken = 'token';
@@ -22,6 +21,7 @@ class UserSecureStorage {
     await _storage.read(key: _keyUsername).then((value) => userName = value);
     return userName;
   }
+
   static Future setEmail(String email) async =>
       await _storage.write(key: _keyEmailId, value: email);
 
@@ -30,6 +30,7 @@ class UserSecureStorage {
     await _storage.read(key: _keyUsername).then((value) => userName = value);
     return userName;
   }
+
   static Future setRole(String role) async =>
       await _storage.write(key: _keyRole, value: role);
 
@@ -38,7 +39,6 @@ class UserSecureStorage {
     await _storage.read(key: _keyUsername).then((value) => userName = value);
     return userName;
   }
-
 
   static Future setToken(String token) async {
     await _storage.write(key: _keyToken, value: token);
@@ -49,6 +49,7 @@ class UserSecureStorage {
     await _storage.read(key: _keyToken).then((value) => token = value);
     return token;
   }
+
   static Future setLoginTime(time) async {
     await _storage.write(key: _keyLoginTime, value: time);
   }
@@ -58,6 +59,7 @@ class UserSecureStorage {
     await _storage.read(key: _keyLoginTime).then((value) => time = value);
     return time;
   }
+
   static Future setLoginDate(date) async {
     await _storage.write(key: _keyLoginDate, value: date);
   }
@@ -67,7 +69,6 @@ class UserSecureStorage {
     await _storage.read(key: _keyLoginDate).then((value) => Date = value);
     return Date;
   }
-
 
   static Future setLatitude(double latitude) async =>
       await _storage.write(key: _keyLatitude, value: latitude.toString());
@@ -87,8 +88,6 @@ class UserSecureStorage {
     return longitude;
   }
 
-
-
   static Future setUserId(String userId) async =>
       await _storage.write(key: _keyUserId, value: userId);
 
@@ -97,8 +96,6 @@ class UserSecureStorage {
     await _storage.read(key: _keyUserId).then((value) => userId = value);
     return userId;
   }
-  
-
 
   static Future<String?> removeToken() async {
     _storage.delete(key: _keyUsername);

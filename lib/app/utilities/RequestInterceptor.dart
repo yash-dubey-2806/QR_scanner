@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:http_interceptor/http_interceptor.dart';
@@ -17,13 +16,12 @@ class RequestInterceptor implements InterceptorContract {
       data.headers[HttpHeaders.acceptHeader] = "application/json";
       data.headers['app_type'] = '1';
       data.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
-      
 
       if (latitude == null) {
         data.headers['latitude'] = 'NA';
         data.headers['longitude'] = 'NA';
       } else {
-        data.headers['latitude'] = '$latitude';
+        data.headers['latitude'] = latitude;
         data.headers['longitude'] = '$longitude';
       }
     } catch (e) {

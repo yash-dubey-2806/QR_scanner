@@ -6,7 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import mobile_scanner
-import path_provider_macos
+import path_provider_foundation
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   MobileScannerPlugin.register(with: registry.registrar(forPlugin: "MobileScannerPlugin"))

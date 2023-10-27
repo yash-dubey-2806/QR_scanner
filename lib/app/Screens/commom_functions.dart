@@ -1,39 +1,47 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CommonFuntion {
   snackBar(String message, context) {
     return ScaffoldMessenger.of(context).showSnackBar(
-
       SnackBar(
-        
-         content: Row(
+        content: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(Icons.warning,color: Colors.red,size: 25,),
-          const  SizedBox(
+            const Icon(
+              Icons.warning,
+              color: Colors.red,
+              size: 25,
+            ),
+            const SizedBox(
               width: 20,
             ),
-            Text(message,style:const TextStyle(  color: Colors.orange,fontSize: 22,overflow: TextOverflow.clip),),
+            Text(
+              message,
+              style: const TextStyle(
+                  color: Colors.orange,
+                  fontSize: 22,
+                  overflow: TextOverflow.clip),
+            ),
           ],
         ),
-        duration: Duration(seconds: 4),
+        duration: const Duration(seconds: 4),
         backgroundColor: Colors.white,
       ),
     );
   }
-  
 
   loaderHandlerShow(context) {
     Loader.show(
       context,
       isSafeAreaOverlay: false,
       overlayColor: Colors.black26,
-      progressIndicator: CircularProgressIndicator(
-        backgroundColor: Colors.white,
-        color: Colors.orange,
+      progressIndicator: const SpinKitFoldingCube(
+        color: Colors.black,
+        // backgroundColor: Colors.white,
+        // color: Colors.orange,
       ),
       themeData: Theme.of(context).copyWith(
         colorScheme: ColorScheme.fromSwatch().copyWith(
@@ -46,8 +54,6 @@ class CommonFuntion {
   loaderHandlerHide() {
     Loader.hide();
   }
-
-  
 }
 
 // void main() {
