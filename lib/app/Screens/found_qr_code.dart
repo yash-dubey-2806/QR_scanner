@@ -23,13 +23,12 @@ class FoundCodeScreen extends StatefulWidget {
 
 class _FoundCodeScreenState extends State<FoundCodeScreen> {
   final audioPlayer = AudioPlayer();
-   AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
+  AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
   late StudentDataBloc _studentDataBloc;
   late AttendanceSuccessBloc _attendanceSuccessBloc;
   late CommonFuntion _commonFuntion;
   @override
   void initState() {
-     
     // audioPlayer.play(assets/audio/P3EsFcN_rRc.mp3);
     // assetsAudioPlayer.play();
     _attendanceSuccessBloc = AttendanceSuccessBloc();
@@ -43,7 +42,6 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
     widget.screenClosed();
     Navigator.pop(context);
   }
-  
 
   adharCardFormate() {
     String s = widget.value;
@@ -69,7 +67,6 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        
         return AlertDialog(
           title: const Text("Detail's"),
           content: SingleChildScrollView(
@@ -93,7 +90,7 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
             TextButton(
               child: const Text('Yes'),
               onPressed: () async {
-                addAttendence(confirmdata.id,confirmdata.isStudent);
+                addAttendence(confirmdata.id, confirmdata.isStudent);
               },
             ),
           ],
@@ -110,17 +107,19 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
         await _attendanceSuccessBloc.fetchStudentAttendance(id, isStudent).then(
       (value) {
         _commonFuntion.loaderHandlerHide();
-        attendanceDone(true,value!.message);
-      value.message =="Employee Is In" ?  assetsAudioPlayer.open(Audio('assets/audio/InAudio.mp3'),
-            autoStart: true):assetsAudioPlayer.open(Audio('assets/audio/OutAudio.mp3'),
-        autoStart: true);
+        attendanceDone(true, value!.message);
+        value.message == "Employee Is In"
+            ? assetsAudioPlayer.open(Audio('assets/audio/InAudio.mp3'),
+                autoStart: true)
+            : assetsAudioPlayer.open(Audio('assets/audio/OutAudio.mp3'),
+                autoStart: true);
       },
     ).catchError((err) {
       _commonFuntion.loaderHandlerHide();
 
       print("error is that" + err.toString());
       err == 208
-          ? attendanceDone(false,err)
+          ? attendanceDone(false, err)
           : err == 401
               ? unAuthorized()
               : "";
@@ -137,7 +136,9 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
       (value) {
         print("Student data " + value!.position.toString());
         _commonFuntion.loaderHandlerHide();
-        value.isStudent == true?userNotFound("Data Not found"): showConfirm(value);
+        value.isStudent == true
+            ? userNotFound("Data Not found")
+            : showConfirm(value);
 
         // existToThisPage();
       },
@@ -147,7 +148,7 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
     });
   }
 
-  Future<void> attendanceDone(status,msg) async {
+  Future<void> attendanceDone(status, msg) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -192,7 +193,7 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                       Text(msg)
+                      Text(msg)
                     ],
                   ),
           ),

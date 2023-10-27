@@ -8,7 +8,6 @@ import 'package:qr_scanner_app/app/Screens/login.dart';
 import 'package:qr_scanner_app/app/Screens/qr_overlay.dart';
 import 'package:qr_scanner_app/app/utilities/UserSecureStorage.dart';
 
-
 class QRScaner extends StatefulWidget {
   const QRScaner({Key? key}) : super(key: key);
 
@@ -19,8 +18,6 @@ class QRScaner extends StatefulWidget {
 class _QRScanerState extends State<QRScaner> {
   MobileScannerController cameraController = MobileScannerController();
   bool _screenOpened = false;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,21 +58,22 @@ class _QRScanerState extends State<QRScaner> {
             onPressed: () => cameraController.switchCamera(),
           ),
           IconButton(
-            icon:
-               Icon(Icons.login_outlined,size: 32.0,
-            color: Colors.white,),
-            onPressed: (){
-              UserSecureStorage.setLoginTime(30.toString());
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> LoginScreen()), (route) => false);
-            },
-
-               
-              
+            icon: const Icon(
+              Icons.login_outlined,
+              size: 32.0,
+              color: Colors.white,
             ),
-           
+            onPressed: () {
+              UserSecureStorage.setLoginTime(30.toString());
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  (route) => false);
+            },
+          ),
         ],
       ),
-      body:  Stack(
+      body: Stack(
         children: [
           MobileScanner(
             allowDuplicates: true,
@@ -109,4 +107,3 @@ class _QRScanerState extends State<QRScaner> {
     _screenOpened = false;
   }
 }
-

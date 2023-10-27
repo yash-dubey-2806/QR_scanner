@@ -10,7 +10,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.orange,
       ),
       // home:(data == 200) ? const LoginScreen():const HomePage(),
-      home:const Splash(),
+      home: const Splash(),
     );
   }
 }
@@ -40,26 +39,24 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  getToken() async{
+  getToken() async {
     final token = await UserSecureStorage.getToken();
     print("This is my token $token");
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:const Text("Attendance App"),
+        title: const Text("Attendance App"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        children: const [
           Center(
-            child: Container(
-                child: Text("Click Button For Take Attendance"),
-              ),
+            child: Text("Click Button For Take Attendance"),
           ),
-          
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -71,7 +68,7 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         },
-        child:const Icon(Icons.qr_code_scanner),
+        child: const Icon(Icons.qr_code_scanner),
       ),
     );
   }
